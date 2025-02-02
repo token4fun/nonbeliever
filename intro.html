@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            background-color: black;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            font-size: 20px;
+            overflow: hidden;
+        }
+        #hacker-text {
+            width: 80%;
+            margin: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div id="hacker-text"></div>
+
+<script>
+    let text = `
+    Initializing NonBeliever Coin System...
+    Loading Blockchain Integrity... [OK]
+    Fetching CoinGecko API... [OK]
+    Encrypting Smart Contracts... [OK]
+    Securing Liquidity Pool... [OK]
+    Generating NonBeliever Enigma... [FAILED]
+    Re-attempting...
+    NonBeliever Enigma Generated... [OK]
+    Welcome, Non Believer. Your journey begins now.
+    `;
+
+    let index = 0;
+    function typeText() {
+        if (index < text.length) {
+            document.getElementById("hacker-text").innerHTML += text[index];
+            index++;
+            setTimeout(typeText, 50);
+        } else {
+            setTimeout(() => { window.location.href = 'index.html'; }, 2000);
+        }
+    }
+    window.onload = typeText;
+</script>
+
+</body>
+</html>
