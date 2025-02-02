@@ -44,14 +44,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (enigmaSolution && telegramUser && email) {
             // Substitua pelo link do Google Forms (form-action URL)
-            const googleFormsURL = "https://docs.google.com/forms/d/e/1FAIpQLSen6vXncObDxoAaenRFUfwZm8hSlXb8MQaEdrbzpUAlrgsjnA/formResponse
-";
+            const googleFormsURL = "https://docs.google.com/forms/d/e/1FAIpQLSen6vXncObDxoAaenRFUfwZm8hSlXb8MQaEdrbzpUAlrgsjnA/formResponse";
 
             // Configurar os campos corretos do formulário
             const formData = new FormData();
-            formData.append("entry.enigmaSolution", enigmaSolution); // ID do campo do Google Forms
-            formData.append("entry.telegramUser", telegramUser);  // ID do campo Telegram
-            formData.append("entry.email", email); // ID do campo Email
+            formData.append("entry.123456789", enigmaSolution); // ID do campo do Google Forms
+            formData.append("entry.987654321", telegramUser);  // ID do campo Telegram
+            formData.append("entry.543216789", email); // ID do campo Email
 
             // Enviar os dados para o Google Forms
             await fetch(googleFormsURL, {
@@ -60,7 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 mode: "no-cors"
             });
 
-            alert("Your enigma submission has been sent!");
+            // Exibir Modal de Confirmação
+            document.getElementById("success-modal").style.display = "block";
             document.getElementById("enigma-modal").style.display = "none";
         } else {
             alert("Please fill in all fields before submitting.");
@@ -69,5 +69,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("close-modal").addEventListener("click", function() {
         document.getElementById("enigma-modal").style.display = "none";
+    });
+    
+    document.getElementById("close-success-modal").addEventListener("click", function() {
+        document.getElementById("success-modal").style.display = "none";
     });
 });
