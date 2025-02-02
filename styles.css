@@ -1,0 +1,18 @@
+/* NonBeliever Coin Final CSS */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+}
+
+#ticker-container {
+    background: rgba(0, 255, 255, 0.2);
+    color: cyan;
+    padding: 10px;
+    font-size: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    text-align: center;
+}
