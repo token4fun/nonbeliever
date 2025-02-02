@@ -28,16 +28,6 @@
 <!-- Particle Background -->
 <div id="particles-js"></div>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 100 },
-            "size": { "value": 3 },
-            "color": { "value": "#39ff14" },
-            "move": { "speed": 2 }
-        }
-    });
-</script>
 
 <!-- Hero Section -->
 <div class="content">
@@ -64,6 +54,18 @@
     <h2 class="neon-text">The Enigma</h2>
     <p id="enigma-text">Generating Enigma...</p>
     <button id="enigma-btn" class="button-highlight">Try to Solve</button>
+</div>
+
+<!-- Enigma Modal -->
+<div id="enigma-modal" class="modal">
+    <p>Enter your answer:</p>
+    <input type="text" placeholder="Enter Enigma Solution">
+    <p>Telegram Username:</p>
+    <input type="text" placeholder="Your TG Username">
+    <p>Email:</p>
+    <input type="email" placeholder="Your Email">
+    <button id="submit-lead" class="button">Submit</button>
+    <button id="close-modal" class="button">Close</button>
 </div>
 
 <!-- Roadmap Section -->
