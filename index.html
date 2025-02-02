@@ -9,17 +9,15 @@
 </head>
 <body>
 
-<!-- Loading Animation -->
-<div id="loading-screen">
-    <p>Initializing System...</p>
-    <p>Verifying Blockchain Integrity... <span class="ok">[OK]</span></p>
-    <p>Fetching Market Data... <span class="ok">[OK]</span></p>
-    <p>Encrypting Smart Contracts... <span class="ok">[OK]</span></p>
-    <p>Securing Liquidity Pool... <span class="ok">[OK]</span></p>
-    <p>Generating NonBeliever Enigma... <span class="failed">[FAILED]</span></p>
-    <p>Retrying...</p>
-    <p>Enigma Successfully Generated... <span class="ok">[OK]</span></p>
-    <p>Welcome, Non Believer. Your journey begins now.</p>
+<!-- Floating Menu -->
+<div id="floating-menu">
+    <div class="menu-button">☰ Menu</div>
+    <ul class="menu-dropdown">
+        <li><a href="#history-container">History</a></li>
+        <li><a href="#roadmap-container">Roadmap</a></li>
+        <li><a href="#team-container">Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
 </div>
 
 <!-- Crypto Ticker -->
@@ -30,33 +28,36 @@
 <!-- Particle Background -->
 <div id="particles-js"></div>
 
-<!-- Main Content -->
+<!-- Hero Section -->
 <div class="content">
-    <h1>Welcome to NonBeliever Coin</h1>
+    <h1 class="neon-text">Welcome to NonBeliever Coin</h1>
     <p>The ultimate crypto experience for those who always wait too long.</p>
 </div>
 
-<!-- Enigma Section -->
-<div id="enigma-container">
-    <h2>The Enigma</h2>
-    <p id="enigma-text">Generating Enigma...</p>
-    <button id="enigma-btn">Try to Solve</button>
+<!-- Banner Section -->
+<div class="banner-section">
+    <div class="banner-container">
+        <img src="banner1.png" alt="Banner 1">
+        <img src="banner2.png" alt="Banner 2">
+    </div>
 </div>
 
-<!-- Enigma Modal -->
-<div id="enigma-modal" class="modal">
-    <p>Enter your answer:</p>
-    <input type="text" placeholder="Enter Enigma Solution">
-    <p>Telegram Username:</p>
-    <input type="text" placeholder="Your TG Username">
-    <p>Email:</p>
-    <input type="email" placeholder="Your Email">
-    <button id="close-modal">Submit</button>
+<!-- History Section -->
+<div id="history-container" class="content-box">
+    <h2 class="neon-text">Our Story</h2>
+    <p>It all started with a group of visionaries who never bought at the right time...</p>
+</div>
+
+<!-- Enigma Section -->
+<div id="enigma-container" class="content-box">
+    <h2 class="neon-text">The Enigma</h2>
+    <p id="enigma-text">Generating Enigma...</p>
+    <button id="enigma-btn" class="button-highlight">Try to Solve</button>
 </div>
 
 <!-- Roadmap Section -->
-<div id="roadmap-container">
-    <h2>Project Roadmap</h2>
+<div id="roadmap-container" class="content-box">
+    <h2 class="neon-text">Project Roadmap</h2>
     <div class="roadmap-grid">
         <div class="roadmap-item">Phase 1: Launch</div>
         <div class="roadmap-item">Phase 2: Growth</div>
@@ -66,8 +67,8 @@
 </div>
 
 <!-- Team Carousel -->
-<div id="team-container">
-    <h2>Meet the Team</h2>
+<div id="team-container" class="content-box">
+    <h2 class="neon-text">Meet the Team</h2>
     <div class="carousel">
         <div class="carousel-item"><img src="images/dev1.png" alt="CTO"><p>CTO - Master Dev</p></div>
         <div class="carousel-item"><img src="images/dev2.png" alt="CMO"><p>CMO - Marketing Guru</p></div>
@@ -75,16 +76,21 @@
     </div>
 </div>
 
-<!-- Modal for Capturing Leads -->
-<div id="lead-modal" class="modal">
+<!-- Contact Section -->
+<div id="contact" class="content-box">
+    <h2 class="neon-text">Stay Updated</h2>
     <p>Sign up for exclusive updates!</p>
     <input type="email" placeholder="Enter your email">
     <input type="text" placeholder="Enter your WhatsApp number">
-    <button id="submit-lead">Submit</button>
+    <button class="button">Submit</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<!-- Footer -->
+<footer>
+    <p>© 2025 NonBeliever Coin. All rights reserved.</p>
+</footer>
 
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="script.js"></script>
 
 </body>
