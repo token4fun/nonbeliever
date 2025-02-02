@@ -1,139 +1,137 @@
-/* NonBeliever Coin Final CSS */
+/* NonBeliever Coin Enhanced CSS */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Orbitron', sans-serif;
-    background-color: black;
-    color: white;
-    overflow-x: hidden;
+  font-family: 'Orbitron', sans-serif;
+  color: #e0e0e0;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
+/* BACKGROUND: Animated with Opacity */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("back.gif") no-repeat center center fixed;
+  background-size: cover;
+  opacity: 0.5;
+  z-index: -2;
+}
+
+/* Crypto Ticker with neon glow */
 #ticker-container {
-    background: rgba(0, 255, 255, 0.2);
-    color: cyan;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 0;
+  background: #111;
+  border-bottom: 4px solid #39ff14;
+  font-size: 20px;
+  text-align: center;
+  z-index: 1000;
+  color: #39ff14;
+  animation: pulse 2s infinite;
 }
 
-#loading-screen {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: black;
-    color: lime;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-size: 20px;
-    z-index: 9999;
-    text-shadow: 0 0 10px lime;
+@keyframes pulse {
+  0% { text-shadow: 0 0 5px #39ff14; }
+  50% { text-shadow: 0 0 20px #39ff14; }
+  100% { text-shadow: 0 0 5px #39ff14; }
 }
 
-.ok {
-    color: cyan;
-    text-shadow: 0 0 10px cyan;
+/* Floating Menu */
+#floating-menu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 4px solid #39ff14;
+  border-radius: 8px;
+  z-index: 1200;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
-.failed {
-    color: red;
-    text-shadow: 0 0 10px red;
+#floating-menu:hover {
+  transform: scale(1.05);
 }
 
-/* Roadmap Styling */
-#roadmap-container {
-    text-align: center;
-    margin-top: 50px;
+/* Banner Section */
+.banner-section {
+  margin-top: 20px;
 }
 
-.roadmap-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+.banner-container {
+  position: relative;
+  max-width: 1024px;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #39ff14;
 }
 
-.roadmap-item {
-    background: rgba(0, 255, 255, 0.2);
-    padding: 20px;
-    font-size: 18px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px cyan;
+.banner-container img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* Team Carousel */
-#team-container {
-    text-align: center;
-    margin-top: 50px;
+/* Neon Text Effects */
+.neon-text {
+  font-family: 'Orbitron', sans-serif;
+  color: #39ff14;
+  text-shadow: 0 0 8px #39ff14, 0 0 15px #39ff14, 0 0 25px #ff1493, 0 0 35px #ff1493;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
-.carousel {
-    display: flex;
-    overflow: auto;
-    white-space: nowrap;
-    gap: 20px;
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 14px 28px;
+  margin: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
 }
 
-.carousel-item {
-    text-align: center;
+.button-highlight {
+  background: #ff1493;
+  color: #fff;
+  box-shadow: 0 0 15px #ff1493;
 }
 
-.carousel-item img {
-    width: 150px;
-    height: 150px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px cyan;
+.button-highlight:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #ff1493;
 }
 
-/* Hover Effect */
-.roadmap-item:hover, .carousel-item img:hover {
-    box-shadow: 0 0 20px magenta;
-    transition: 0.3s;
+.button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #1e90ff;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 0 20px cyan;
-}
-
-.modal input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    background: black;
-    color: white;
-    text-align: center;
-    font-size: 16px;
-    border-bottom: 2px solid cyan;
-}
-
-.modal button {
-    background: cyan;
-    color: black;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.modal button:hover {
-    background: magenta;
-    color: white;
+/* Footer */
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #111;
+  border-top: 4px solid #39ff14;
+  margin-top: 40px;
 }
