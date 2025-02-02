@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (enigmaSolution && telegramUser && email) {
             // Substitua pelo link do Google Forms (form-action URL)
-            const googleFormsURL = "https://docs.google.com/forms/d/e/1FAIpQLSen6vXncObDxoAaenRFUfwZm8hSlXb8MQaEdrbzpUAlrgsjnA/viewform?usp=sharing";
+            const googleFormsURL = "https://docs.google.com/forms/d/e/1FAIpQLSen6vXncObDxoAaenRFUfwZm8hSlXb8MQaEdrbzpUAlrgsjnA/formResponse
+";
 
             // Configurar os campos corretos do formulário
             const formData = new FormData();
