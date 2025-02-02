@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initialize Particles JS
     particlesJS("particles-js", {
         "particles": {
-            "number": { "value": 150 },
+            "number": { "value": 100 },
             "size": { "value": 3 },
-            "color": { "value": "#0ff" },
+            "color": { "value": "#39ff14" },
             "move": { "speed": 2 }
         }
     });
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function generateEnigma() {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let enigma = "";
-        for (let i = 0; i < 29; i++) {
+        for (let i = 0; i < 15; i++) {
             enigma += chars[Math.floor(Math.random() * chars.length)];
         }
         enigmaDisplay.textContent = enigma;
@@ -42,12 +42,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     document.getElementById("submit-lead").addEventListener("click", function() {
-        alert("Thank you for signing up!");
-        document.getElementById("lead-modal").style.display = "none";
+        const enigmaSolution = document.querySelector("#enigma-modal input[type='text']").value;
+        const telegramUser = document.querySelector("#enigma-modal input[type='text']:nth-of-type(2)").value;
+        const email = document.querySelector("#enigma-modal input[type='email']").value;
+        
+        if (enigmaSolution && telegramUser && email) {
+            const mailtoLink = `mailto:marcelovpessoa@gmail.com?subject=Enigma Submission&body=Enigma: ${enigmaSolution}%0D%0ATelegram: ${telegramUser}%0D%0AEmail: ${email}`;
+            window.location.href = mailtoLink;
+            alert("Your enigma submission has been sent!");
+            document.getElementById("enigma-modal").style.display = "none";
+        } else {
+            alert("Please fill in all fields before submitting.");
+        }
     });
-
-    // Loading Animation
-    setTimeout(() => {
-        document.getElementById("loading-screen").style.display = "none";
-    }, 4000);
 });
