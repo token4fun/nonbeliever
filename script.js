@@ -35,15 +35,17 @@ document.addEventListener("DOMContentLoaded", function() {
     // Modal Handlers
     document.getElementById("enigma-btn").addEventListener("click", function() {
         document.getElementById("enigma-modal").style.display = "block";
-        document.querySelector("#enigma-modal input[type='text']").value = "";
-        document.querySelector("#enigma-modal input[type='text']:nth-of-type(2)").value = "";
-        document.querySelector("#enigma-modal input[type='email']").value = "";
+        document.querySelector("#enigma-modal input[name='enigmaSolution']").value = "";
+        document.querySelector("#enigma-modal input[name='telegramUser']").value = "";
+        document.querySelector("#enigma-modal input[name='email']").value = "";
     });
 
-    document.getElementById("submit-lead").addEventListener("click", async function () {
-        const enigmaSolution = document.querySelector("#enigma-modal input[type='text']").value;
-        const telegramUser = document.querySelector("#enigma-modal input[type='text']:nth-of-type(2)").value;
-        const email = document.querySelector("#enigma-modal input[type='email']").value;
+    document.getElementById("submit-lead").addEventListener("click", async function (event) {
+        event.preventDefault(); // Impede envios múltiplos acidentais
+
+        const enigmaSolution = document.querySelector("#enigma-modal input[name='enigmaSolution']").value;
+        const telegramUser = document.querySelector("#enigma-modal input[name='telegramUser']").value;
+        const email = document.querySelector("#enigma-modal input[name='email']").value;
 
         if (enigmaSolution && telegramUser && email) {
             // Substitua pelo link do Google Forms (form-action URL)
@@ -56,20 +58,25 @@ document.addEventListener("DOMContentLoaded", function() {
             formData.append("entry.903482388", email); // ID do campo Email
 
             // Enviar os dados para o Google Forms
-            await fetch(googleFormsURL, {
-                method: "POST",
-                body: formData,
-                mode: "no-cors"
-            });
+            try {
+                await fetch(googleFormsURL, {
+                    method: "POST",
+                    body: formData,
+                    mode: "no-cors"
+                });
 
-            // Gerar código de envio
-            const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(2);
-            const submissionCode = `NB-${timestamp}-${Math.floor(1000 + Math.random() * 9000)}`;
-            document.getElementById("submission-code").innerText = `Submission Code: ${submissionCode}`;
+                // Gerar código de envio
+                const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(2);
+                const submissionCode = `NB-${timestamp}-${Math.floor(1000 + Math.random() * 9000)}`;
+                document.getElementById("submission-code").innerText = `Submission Code: ${submissionCode}`;
 
-            // Exibir Modal de Confirmação
-            document.getElementById("success-modal").style.display = "block";
-            document.getElementById("enigma-modal").style.display = "none";
+                // Exibir Modal de Confirmação
+                document.getElementById("success-modal").style.display = "block";
+                document.getElementById("enigma-modal").style.display = "none";
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                alert("There was an error submitting your response. Please try again.");
+            }
         } else {
             alert("Please fill in all fields before submitting.");
         }
