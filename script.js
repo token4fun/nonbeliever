@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Modal Handlers
     document.getElementById("enigma-btn").addEventListener("click", function() {
         document.getElementById("enigma-modal").style.display = "block";
+        document.querySelector("#enigma-modal input[type='text']").value = "";
+        document.querySelector("#enigma-modal input[type='text']:nth-of-type(2)").value = "";
+        document.querySelector("#enigma-modal input[type='email']").value = "";
     });
 
     document.getElementById("submit-lead").addEventListener("click", async function () {
@@ -58,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: formData,
                 mode: "no-cors"
             });
+
+            // Gerar código de envio
+            const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(2);
+            const submissionCode = `NB-${timestamp}-${Math.floor(1000 + Math.random() * 9000)}`;
+            document.getElementById("submission-code").innerText = `Submission Code: ${submissionCode}`;
 
             // Exibir Modal de Confirmação
             document.getElementById("success-modal").style.display = "block";
