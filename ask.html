@@ -119,8 +119,8 @@
       border-top: 4px solid #39ff14;
       margin-top: 40px;
     }
-    /* Estilo para o rótulo "Email:" */
-    .email-label {
+    /* Estilo para o rótulo "Project Answer:" */
+    .project-answer-label {
       font-weight: bold;
       text-align: right;
     }
@@ -151,11 +151,8 @@
   <table id="sheet-table">
     <thead>
       <tr>
-        <th>Enigma Solution</th>
-        <th>Telegram Username</th>
-      </tr>
-      <tr>
-        <th colspan="2">Email</th>
+        <th>TG User</th>
+        <th>Question</th>
       </tr>
     </thead>
     <tbody>
@@ -183,7 +180,7 @@
     });
     
     // URL da página publicada do Google Sheets (HTML)
-    const publishedHtmlUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pubhtml";
+    const publishedHtmlUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pubhtml?gid=1594169878&single=true";
     
     // Busca a página publicada e processa a tabela
     fetch(publishedHtmlUrl)
@@ -205,21 +202,21 @@
         
         // Considerando que a segunda linha (índice 1) é o cabeçalho da planilha
         const headerCells = rows[1].querySelectorAll("td, th");
-        let idxEnigma = -1, idxTelegram = -1, idxEmail = -1;
+        let idxTG = -1, idxQuestion = -1, idxProject = -1;
         headerCells.forEach((cell, index) => {
           const headerText = cell.textContent.trim().toLowerCase();
-          if (headerText.includes("enigma")) {
-            idxEnigma = index;
-          } else if (headerText.includes("telegram")) {
-            idxTelegram = index;
-          } else if (headerText.includes("email") || headerText.includes("e-mail")) {
-            idxEmail = index;
+          if (headerText.includes("tg user")) {
+            idxTG = index;
+          } else if (headerText.includes("question")) {
+            idxQuestion = index;
+          } else if (headerText.includes("project answer")) {
+            idxProject = index;
           }
         });
         // Se não forem encontrados, define índices padrão
-        if (idxEnigma === -1) idxEnigma = 0;
-        if (idxTelegram === -1) idxTelegram = 1;
-        if (idxEmail === -1) idxEmail = 2;
+        if (idxTG === -1) idxTG = 0;
+        if (idxQuestion === -1) idxQuestion = 1;
+        if (idxProject === -1) idxProject = 2;
         
         const tbody = document.querySelector("#sheet-table tbody");
         // Itera a partir da terceira linha (índice 2) para pular os cabeçalhos da planilha
@@ -227,25 +224,25 @@
           const cells = rows[i].querySelectorAll("td");
           if (cells.length === 0) continue; // pula linhas sem dados
           
-          // Cria a primeira linha para Enigma Solution e Telegram Username
+          // Cria a primeira linha para TG User e Question
           const tr1 = document.createElement("tr");
-          const tdEnigma = document.createElement("td");
-          tdEnigma.textContent = cells[idxEnigma] ? cells[idxEnigma].textContent.trim() : "";
-          const tdTelegram = document.createElement("td");
-          tdTelegram.textContent = cells[idxTelegram] ? cells[idxTelegram].textContent.trim() : "";
-          tr1.appendChild(tdEnigma);
-          tr1.appendChild(tdTelegram);
+          const tdTG = document.createElement("td");
+          tdTG.textContent = cells[idxTG] ? cells[idxTG].textContent.trim() : "";
+          const tdQuestion = document.createElement("td");
+          tdQuestion.textContent = cells[idxQuestion] ? cells[idxQuestion].textContent.trim() : "";
+          tr1.appendChild(tdTG);
+          tr1.appendChild(tdQuestion);
           tbody.appendChild(tr1);
           
-          // Cria a segunda linha para o Email: uma célula com o rótulo e outra com o conteúdo
+          // Cria a segunda linha para o Project Answer:
           const tr2 = document.createElement("tr");
-          const tdEmailLabel = document.createElement("td");
-          tdEmailLabel.textContent = "Email:";
-          tdEmailLabel.classList.add("email-label");
-          const tdEmailValue = document.createElement("td");
-          tdEmailValue.textContent = cells[idxEmail] ? cells[idxEmail].textContent.trim() : "";
-          tr2.appendChild(tdEmailLabel);
-          tr2.appendChild(tdEmailValue);
+          const tdProjectLabel = document.createElement("td");
+          tdProjectLabel.textContent = "Project Answer:";
+          tdProjectLabel.classList.add("project-answer-label");
+          const tdProjectValue = document.createElement("td");
+          tdProjectValue.textContent = cells[idxProject] ? cells[idxProject].textContent.trim() : "";
+          tr2.appendChild(tdProjectLabel);
+          tr2.appendChild(tdProjectValue);
           tbody.appendChild(tr2);
         }
       })
