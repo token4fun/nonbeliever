@@ -160,13 +160,11 @@
     <p>© 2025 NonBeliever Coin. All rights reserved.</p>
   </footer>
   
-  <!-- Inclusão das bibliotecas necessárias -->
+  <!-- Inclusão do ParticlesJS -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <!-- Papa Parse para processamento de CSV -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
   <script>
-    /* Inicializa o ParticlesJS para o fundo */
+    /* Inicializa o efeito de partículas */
     particlesJS("particles-js", {
       "particles": {
         "number": { "value": 100 },
@@ -176,42 +174,68 @@
       }
     });
     
-    // URL da planilha em formato CSV
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pub?output=csv";
+    // URL da página publicada (HTML) do Google Sheets
+    const publishedHtmlUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pubhtml";
     
-    // Busca e processa o CSV usando Papa Parse
-    fetch(csvUrl)
+    // Busca a página publicada e processa a tabela
+    fetch(publishedHtmlUrl)
       .then(response => response.text())
-      .then(csvText => {
-        // Parseia o CSV; o header: true fará com que os dados sejam retornados como objetos
-        const parsed = Papa.parse(csvText, {
-          header: true,
-          skipEmptyLines: true
-        });
-        console.log(parsed.data); // Verifique os dados no console para depuração
+      .then(htmlText => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, "text/html");
+        // A tabela publicada geralmente tem a classe "waffle"
+        const sourceTable = doc.querySelector("table.waffle");
+        if (!sourceTable) {
+          console.error("Tabela não encontrada na página publicada.");
+          return;
+        }
+        const rows = sourceTable.querySelectorAll("tr");
+        if (rows.length === 0) {
+          console.error("Nenhuma linha encontrada na tabela.");
+          return;
+        }
         
-        // Insere os dados na tabela
+        // Obtém os índices dos campos a partir do cabeçalho (primeira linha)
+        const headerCells = rows[0].querySelectorAll("td, th");
+        let idxSolution = -1, idxTelegram = -1, idxEmail = -1;
+        headerCells.forEach((cell, index) => {
+          const headerText = cell.textContent.trim().toLowerCase();
+          if (headerText.includes("enigma")) {
+            idxSolution = index;
+          } else if (headerText.includes("telegram")) {
+            idxTelegram = index;
+          } else if (headerText.includes("email")) {
+            idxEmail = index;
+          }
+        });
+        // Se não forem encontrados, define índices padrão (assumindo que a primeira coluna seja Timestamp)
+        if (idxSolution === -1) idxSolution = 1;
+        if (idxTelegram === -1) idxTelegram = 2;
+        if (idxEmail === -1) idxEmail = 3;
+        
         const tbody = document.querySelector("#sheet-table tbody");
-        parsed.data.forEach(row => {
+        // Itera a partir da segunda linha (índice 1) para pular o cabeçalho
+        for (let i = 1; i < rows.length; i++) {
+          const cells = rows[i].querySelectorAll("td");
+          if (cells.length === 0) continue; // pula linhas sem dados
           const tr = document.createElement("tr");
           
-          // Certifique-se de que os nomes dos campos (chaves) correspondam aos cabeçalhos do CSV
           const tdSolution = document.createElement("td");
-          tdSolution.textContent = row["Enigma Solution"] || "";
+          tdSolution.textContent = cells[idxSolution] ? cells[idxSolution].textContent.trim() : "";
           
           const tdTelegram = document.createElement("td");
-          tdTelegram.textContent = row["Telegram Username"] || "";
+          tdTelegram.textContent = cells[idxTelegram] ? cells[idxTelegram].textContent.trim() : "";
           
           const tdEmail = document.createElement("td");
-          tdEmail.textContent = row["Email"] || "";
+          tdEmail.textContent = cells[idxEmail] ? cells[idxEmail].textContent.trim() : "";
           
           tr.appendChild(tdSolution);
           tr.appendChild(tdTelegram);
           tr.appendChild(tdEmail);
           tbody.appendChild(tr);
-        });
+        }
       })
-      .catch(error => console.error("Erro ao buscar ou processar o CSV:", error));
+      .catch(error => console.error("Erro ao buscar ou processar a página publicada:", error));
   </script>
 </body>
 </html>
