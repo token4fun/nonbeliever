@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Configurar os campos corretos do formulário
             const formData = new FormData();
-            formData.append("entry.i8", enigmaSolution); // ID do campo do Google Forms
-            formData.append("entry.i13", telegramUser);  // ID do campo Telegram
-            formData.append("entry.i18", email); // ID do campo Email
+            formData.append("entry.204033581", enigmaSolution); // ID do campo do Google Forms
+            formData.append("entry.440389986", telegramUser);  // ID do campo Telegram
+            formData.append("entry.903482388", email); // ID do campo Email
 
             // Enviar os dados para o Google Forms
             await fetch(googleFormsURL, {
