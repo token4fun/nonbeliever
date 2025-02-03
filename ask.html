@@ -148,11 +148,10 @@
   <!-- Título da Página -->
   <h1>Ask - NonBeliever Coin Responses</h1>
   
-  <!-- Tabela com cabeçalho fixo -->
+  <!-- Cabeçalho fixo da tabela -->
   <table id="sheet-table">
     <thead>
       <tr>
-        <th>Enigma Solution</th>
         <th>Telegram Username</th>
       </tr>
       <tr>
@@ -206,40 +205,34 @@
         
         // Considerando que a segunda linha (índice 1) é o cabeçalho da planilha
         const headerCells = rows[1].querySelectorAll("td, th");
-        let idxSolution = -1, idxTelegram = -1, idxEmail = -1;
+        let idxTelegram = -1, idxEmail = -1;
         headerCells.forEach((cell, index) => {
           const headerText = cell.textContent.trim().toLowerCase();
-          if (headerText.includes("enigma")) {
-            idxSolution = index;
-          } else if (headerText.includes("telegram")) {
+          if (headerText.includes("telegram")) {
             idxTelegram = index;
           } else if (headerText.includes("email") || headerText.includes("e-mail")) {
             idxEmail = index;
           }
         });
-        // Se não forem encontrados, define índices padrão
-        if (idxSolution === -1) idxSolution = 0;
-        if (idxTelegram === -1) idxTelegram = 1;
-        if (idxEmail === -1) idxEmail = 2;
+        // Se não forem encontrados, define índices padrão (supondo que a primeira coluna é Telegram e a segunda é Email)
+        if (idxTelegram === -1) idxTelegram = 0;
+        if (idxEmail === -1) idxEmail = 1;
         
         const tbody = document.querySelector("#sheet-table tbody");
-        // Itera a partir da terceira linha (índice 2) para pular o cabeçalho da planilha
+        // Itera a partir da terceira linha (índice 2) para pular os cabeçalhos da planilha
         for (let i = 2; i < rows.length; i++) {
           const cells = rows[i].querySelectorAll("td");
           if (cells.length === 0) continue; // pula linhas sem dados
           
-          // Cria a primeira linha para Enigma Solution e Telegram Username
+          // Cria a primeira linha para Telegram Username (ocupando toda a largura)
           const tr1 = document.createElement("tr");
-          const tdSolution = document.createElement("td");
-          tdSolution.textContent = cells[idxSolution] ? cells[idxSolution].textContent.trim() : "";
           const tdTelegram = document.createElement("td");
+          tdTelegram.colSpan = 2;
           tdTelegram.textContent = cells[idxTelegram] ? cells[idxTelegram].textContent.trim() : "";
-          tr1.appendChild(tdSolution);
           tr1.appendChild(tdTelegram);
           tbody.appendChild(tr1);
           
-          // Cria a segunda linha para o Email, com duas células:
-          // A primeira célula exibe o rótulo "Email:" e a segunda exibe o conteúdo do email.
+          // Cria a segunda linha para o Email: uma célula com o rótulo e outra com o conteúdo
           const tr2 = document.createElement("tr");
           const tdEmailLabel = document.createElement("td");
           tdEmailLabel.textContent = "Email:";
