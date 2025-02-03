@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ask - NonBeliever Coin Responses</title>
   
@@ -32,7 +32,7 @@
       height: 100vh;
       z-index: -1;
     }
-    /* Crypto Ticker */
+    /* Crypto Ticker with neon glow */
     #ticker-container {
       position: fixed;
       top: 0;
@@ -162,7 +162,8 @@
   
   <!-- Inclusão das bibliotecas necessárias -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <!-- Papa Parse para processamento de CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
   <script>
     /* Inicializa o ParticlesJS para o fundo */
@@ -175,45 +176,42 @@
       }
     });
     
-    // Quando o DOM estiver carregado, inicia a busca dos dados
-    window.addEventListener('DOMContentLoaded', init);
+    // URL da planilha em formato CSV
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pub?output=csv";
     
-    function init() {
-      Tabletop.init({
-        // Utilize a URL completa da planilha publicada
-        key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pubhtml',
-        callback: showInfo,
-        simpleSheet: true
-      });
-    }
-    
-    function showInfo(data, tabletop) {
-      console.log(data); // Para depuração: veja os dados no console do navegador
-      
-      var tbody = document.querySelector('#sheet-table tbody');
-      
-      // Para cada linha da planilha, cria uma linha na tabela.
-      data.forEach(function(row) {
-        var tr = document.createElement('tr');
+    // Busca e processa o CSV usando Papa Parse
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csvText => {
+        // Parseia o CSV; o header: true fará com que os dados sejam retornados como objetos
+        const parsed = Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true
+        });
+        console.log(parsed.data); // Verifique os dados no console para depuração
         
-        // Ajuste os nomes das chaves conforme os cabeçalhos da sua planilha.
-        // Por exemplo, se a primeira coluna se chama "Enigma Solution",
-        // a segunda "Telegram Username" e a terceira "Email":
-        var tdSolution = document.createElement('td');
-        tdSolution.textContent = row["Enigma Solution"] || "";
-        
-        var tdTelegram = document.createElement('td');
-        tdTelegram.textContent = row["Telegram Username"] || "";
-        
-        var tdEmail = document.createElement('td');
-        tdEmail.textContent = row["Email"] || "";
-        
-        tr.appendChild(tdSolution);
-        tr.appendChild(tdTelegram);
-        tr.appendChild(tdEmail);
-        tbody.appendChild(tr);
-      });
-    }
+        // Insere os dados na tabela
+        const tbody = document.querySelector("#sheet-table tbody");
+        parsed.data.forEach(row => {
+          const tr = document.createElement("tr");
+          
+          // Certifique-se de que os nomes dos campos (chaves) correspondam aos cabeçalhos do CSV
+          const tdSolution = document.createElement("td");
+          tdSolution.textContent = row["Enigma Solution"] || "";
+          
+          const tdTelegram = document.createElement("td");
+          tdTelegram.textContent = row["Telegram Username"] || "";
+          
+          const tdEmail = document.createElement("td");
+          tdEmail.textContent = row["Email"] || "";
+          
+          tr.appendChild(tdSolution);
+          tr.appendChild(tdTelegram);
+          tr.appendChild(tdEmail);
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(error => console.error("Erro ao buscar ou processar o CSV:", error));
   </script>
 </body>
 </html>
