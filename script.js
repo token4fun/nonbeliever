@@ -43,10 +43,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("submit-lead").addEventListener("click", async function (event) {
         event.preventDefault(); // Impede envios múltiplos acidentais
 
-        const enigmaSolution = document.querySelector("#enigma-modal input[name='enigmaSolution']").value;
-        const telegramUser = document.querySelector("#enigma-modal input[name='telegramUser']").value;
-        const email = document.querySelector("#enigma-modal input[name='email']").value;
+        const enigmaSolution = document.querySelector("#enigma-modal input[name='enigmaSolution']").value.trim();
+        const telegramUser = document.querySelector("#enigma-modal input[name='telegramUser']").value.trim();
+        const email = document.querySelector("#enigma-modal input[name='email']").value.trim();
 
+        // Se qualquer campo estiver vazio, exibe o modal de erro
         if (!enigmaSolution || !telegramUser || !email) {
             document.getElementById("error-modal").style.display = "block";
             return;
