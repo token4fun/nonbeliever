@@ -47,46 +47,51 @@ document.addEventListener("DOMContentLoaded", function() {
         const telegramUser = document.querySelector("#enigma-modal input[name='telegramUser']").value;
         const email = document.querySelector("#enigma-modal input[name='email']").value;
 
-        if (enigmaSolution && telegramUser && email) {
-            // Substitua pelo link do Google Forms (form-action URL)
-            const googleFormsURL = "https://docs.google.com/forms/d/e/1FAIpQLSen6vXncObDxoAaenRFUfwZm8hSlXb8MQaEdrbzpUAlrgsjnA/formResponse";
+        if (!enigmaSolution || !telegramUser || !email) {
+            document.getElementById("error-modal").style.display = "block";
+            return;
+        }
 
-            // Configurar os campos corretos do formulário
-            const formData = new FormData();
-            formData.append("entry.204033581", enigmaSolution); // ID do campo do Google Forms
-            formData.append("entry.440389986", telegramUser);  // ID do campo Telegram
-            formData.append("entry.903482388", email); // ID do campo Email
+        // Substitua pelo link do Google Forms (form-action URL)
+        const googleFormsURL = "https://docs.google.com/forms/d/e/1FAIpQLSen6vXncObDxoAaenRFUfwZm8hSlXb8MQaEdrbzpUAlrgsjnA/formResponse";
 
-            // Enviar os dados para o Google Forms
-            try {
-                await fetch(googleFormsURL, {
-                    method: "POST",
-                    body: formData,
-                    mode: "no-cors"
-                });
+        // Configurar os campos corretos do formulário
+        const formData = new FormData();
+        formData.append("entry.204033581", enigmaSolution); // ID do campo do Google Forms
+        formData.append("entry.440389986", telegramUser);  // ID do campo Telegram
+        formData.append("entry.903482388", email); // ID do campo Email
 
-                // Gerar código de envio
-                const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(2);
-                const submissionCode = `NB-${timestamp}-${Math.floor(1000 + Math.random() * 9000)}`;
-                document.getElementById("submission-code").innerText = `Submission Code: ${submissionCode}`;
+        // Enviar os dados para o Google Forms
+        try {
+            await fetch(googleFormsURL, {
+                method: "POST",
+                body: formData,
+                mode: "no-cors"
+            });
 
-                // Exibir Modal de Confirmação
-                document.getElementById("success-modal").style.display = "block";
-                document.getElementById("enigma-modal").style.display = "none";
-            } catch (error) {
-                console.error("Error submitting form:", error);
-                alert("There was an error submitting your response. Please try again.");
-            }
-        } else {
-            alert("Please fill in all fields before submitting.");
+            // Gerar código de envio
+            const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(2);
+            const submissionCode = `NB-${timestamp}-${Math.floor(1000 + Math.random() * 9000)}`;
+            document.getElementById("submission-code").innerText = `Submission Code: ${submissionCode}`;
+
+            // Exibir Modal de Confirmação
+            document.getElementById("success-modal").style.display = "block";
+            document.getElementById("enigma-modal").style.display = "none";
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            document.getElementById("error-modal").style.display = "block";
         }
     });
 
     document.getElementById("close-modal").addEventListener("click", function() {
         document.getElementById("enigma-modal").style.display = "none";
     });
-    
+
     document.getElementById("close-success-modal").addEventListener("click", function() {
         document.getElementById("success-modal").style.display = "none";
+    });
+
+    document.getElementById("close-error-modal").addEventListener("click", function() {
+        document.getElementById("error-modal").style.display = "none";
     });
 });
