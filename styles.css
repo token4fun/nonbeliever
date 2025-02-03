@@ -98,7 +98,7 @@ body {
 }
 
 /* Enigma Modal */
-#enigma-modal {
+#enigma-modal, #error-modal {
   display: none;
   position: fixed;
   left: 50%;
@@ -110,9 +110,11 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 20px cyan;
   z-index: 1500;
+  width: 80%;
+  max-width: 400px;
 }
 
-#enigma-modal input {
+#enigma-modal input, #error-modal input {
   width: 90%;
   padding: 10px;
   margin: 10px 0;
@@ -124,7 +126,7 @@ body {
   border-bottom: 2px solid cyan;
 }
 
-#enigma-modal button {
+#enigma-modal button, #error-modal button {
   background: cyan;
   color: black;
   padding: 10px;
@@ -135,9 +137,16 @@ body {
   transition: 0.3s;
 }
 
-#enigma-modal button:hover {
+#enigma-modal button:hover, #error-modal button:hover {
   background: magenta;
   color: white;
+}
+
+/* Error Modal */
+#error-modal p {
+  color: #ff1493;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 /* Buttons */
