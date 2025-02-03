@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
         formData.append("entry.440389986", telegramUser);  // ID do campo Telegram
         formData.append("entry.903482388", email); // ID do campo Email
 
-        // Enviar os dados para o Google Forms
         try {
             await fetch(googleFormsURL, {
                 method: "POST",
