@@ -147,12 +147,12 @@
   <!-- Tabela para exibir os dados da planilha -->
   <table id="sheet-table">
     <thead>
-      <!-- Primeira linha: cabeçalhos para Enigma e Telegram -->
+      <!-- Cabeçalhos: Uma linha para Enigma Solution e Telegram Username -->
       <tr>
         <th>Enigma Solution</th>
         <th>Telegram Username</th>
       </tr>
-      <!-- Segunda linha: cabeçalho para Email -->
+      <!-- Outra linha para o campo Email (ocupando as duas colunas) -->
       <tr>
         <th colspan="2">Email</th>
       </tr>
@@ -236,10 +236,12 @@
           tr1.appendChild(tdTelegram);
           tbody.appendChild(tr1);
           
-          // Cria a segunda linha para o Email, com colspan igual a 2
+          // Cria a segunda linha para o Email, com colspan igual a 2,
+          // e adiciona o rótulo "Email:" no início.
           const tr2 = document.createElement("tr");
           const tdEmail = document.createElement("td");
-          tdEmail.textContent = cells[idxEmail] ? cells[idxEmail].textContent.trim() : "";
+          const emailValue = cells[idxEmail] ? cells[idxEmail].textContent.trim() : "";
+          tdEmail.textContent = "Email: " + emailValue;
           tdEmail.colSpan = 2;
           tr2.appendChild(tdEmail);
           tbody.appendChild(tr2);
