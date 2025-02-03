@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // 1. Atualiza o ticker com os preços das criptomoedas
+  /* 1. Atualiza o ticker com os preços das criptomoedas */
   fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin&vs_currencies=usd')
     .then(response => response.json())
     .then(data => {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .catch(error => console.error("Erro ao buscar preços:", error));
 
-  // 2. Inicializa o ParticlesJS
+  /* 2. Inicializa o ParticlesJS */
   if (typeof particlesJS !== "undefined") {
     particlesJS("particles-js", {
       "particles": {
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.error("particlesJS não está definido. Verifique a importação da biblioteca.");
   }
 
-  // 3. Gerador de Enigma (atualiza o texto a cada 200ms)
+  /* 3. Gerador de Enigma (atualiza o texto a cada 200ms) */
   const enigmaDisplay = document.getElementById("enigma-text");
   if (enigmaDisplay) {
     function generateEnigma() {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(generateEnigma, 200);
   }
 
-  // 4. Configuração dos modais e dos _event listeners_
+  /* 4. Configuração dos modais e _event listeners_ */
   const enigmaBtn            = document.getElementById("enigma-btn");
   const enigmaModal          = document.getElementById("enigma-modal");
   const submitLead           = document.getElementById("submit-lead");
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const closeSuccessModalBtn = document.getElementById("close-success-modal");
   const closeErrorModalBtn   = document.getElementById("close-error-modal");
 
-  // Abre o modal de enigma e limpa os campos quando o usuário clica no botão "Try to solve"
+  // Abre o modal de enigma e limpa os campos
   if (enigmaBtn && enigmaModal) {
     enigmaBtn.addEventListener("click", function() {
       enigmaModal.style.display = "block";
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Envia os dados para o Google Forms utilizando modais para feedback
+  // Processa o envio do formulário
   if (submitLead && enigmaModal) {
     submitLead.addEventListener("click", async function(event) {
       event.preventDefault();
@@ -70,12 +70,15 @@ document.addEventListener("DOMContentLoaded", function() {
       const textInputs = enigmaModal.querySelectorAll("input[type='text']");
       const emailInput = enigmaModal.querySelector("input[type='email']");
 
-      // Assume que:
-      // - O primeiro input text é o enigmaSolution
-      // - O segundo input text é o telegramUser
+      // Assume: 
+      // - O primeiro input de texto é a solução do enigma.
+      // - O segundo input de texto é o Telegram Username.
       const enigmaSolution = textInputs[0] ? textInputs[0].value.trim() : "";
       const telegramUser   = textInputs[1] ? textInputs[1].value.trim() : "";
       const email          = emailInput ? emailInput.value.trim() : "";
+
+      // Log para depuração (verifique o console do navegador)
+      console.log("enigmaSolution:", enigmaSolution, "telegramUser:", telegramUser, "email:", email);
 
       // Se algum campo estiver vazio, exibe o modal de erro
       if (!enigmaSolution || !telegramUser || !email) {
@@ -117,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // 5. Handlers para fechar os modais
+  // Handlers para fechar os modais
   if (closeModalBtn && enigmaModal) {
     closeModalBtn.addEventListener("click", function() {
       enigmaModal.style.display = "none";
