@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask - NonBeliever Coin Responses</title>
+  
+  <!-- Importa a fonte Orbitron -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+  
+  <!-- Estilos baseados no NonBeliever Coin Enhanced CSS -->
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* Global Styles */
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: black;
+      color: white;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Particle Background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+    }
+    /* Crypto Ticker */
+    #ticker-container {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 0;
+      background: #111;
+      border-bottom: 4px solid #39ff14;
+      font-size: 20px;
+      text-align: center;
+      z-index: 1000;
+      color: #39ff14;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { text-shadow: 0 0 5px #39ff14; }
+      50% { text-shadow: 0 0 20px #39ff14; }
+      100% { text-shadow: 0 0 5px #39ff14; }
+    }
+    /* Floating Menu */
+    #floating-menu {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 4px solid #39ff14;
+      border-radius: 8px;
+      z-index: 1200;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    #floating-menu:hover {
+      transform: scale(1.05);
+    }
+    #floating-menu .menu-dropdown {
+      list-style: none;
+      display: none;
+    }
+    #floating-menu:hover .menu-dropdown {
+      display: block;
+      text-align: right;
+    }
+    #floating-menu .menu-dropdown li a {
+      color: #39ff14;
+      text-decoration: none;
+      padding: 8px 12px;
+      display: block;
+    }
+    /* Tabela de Dados */
+    table {
+      width: 90%;
+      margin: 120px auto 20px auto;
+      border-collapse: collapse;
+      background: rgba(0, 0, 0, 0.8);
+      border: 4px solid #39ff14;
+      border-radius: 8px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #39ff14;
+      text-align: center;
+    }
+    th {
+      background-color: #111;
+      font-size: 1.1rem;
+    }
+    tr:nth-child(even) {
+      background-color: #222;
+    }
+    /* Título */
+    h1 {
+      text-align: center;
+      margin-top: 100px;
+      margin-bottom: 20px;
+      color: #39ff14;
+      text-shadow: 0 0 8px #39ff14, 0 0 15px #39ff14;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      border-top: 4px solid #39ff14;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  
+  <!-- Crypto Ticker -->
+  <div id="ticker-container">
+    <div id="crypto-ticker">BTC: $-- | ETH: $-- | BNB: $--</div>
+  </div>
+  
+  <!-- Floating Menu -->
+  <div id="floating-menu">
+    <div class="menu-button">☰ Menu</div>
+    <ul class="menu-dropdown">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="ask.html">Ask</a></li>
+      <!-- Outros itens, se necessário -->
+    </ul>
+  </div>
+  
+  <!-- Título da Página -->
+  <h1>Ask - NonBeliever Coin Responses</h1>
+  
+  <!-- Tabela para exibir os dados da planilha -->
+  <table id="sheet-table">
+    <thead>
+      <tr>
+        <th>Enigma Solution</th>
+        <th>Telegram Username</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Os dados serão inseridos aqui via JavaScript -->
+    </tbody>
+  </table>
+  
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 NonBeliever Coin. All rights reserved.</p>
+  </footer>
+  
+  <!-- Inclusão das bibliotecas necessárias -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  
+  <script>
+    /* Inicializa o ParticlesJS para o fundo */
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100 },
+        "size": { "value": 3 },
+        "color": { "value": "#39ff14" },
+        "move": { "speed": 2 }
+      }
+    });
+    
+    // Quando o DOM estiver carregado, inicia a busca dos dados
+    window.addEventListener('DOMContentLoaded', init);
+    
+    function init() {
+      Tabletop.init({
+        // Utilize a URL completa da planilha publicada
+        key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8C_g4R_BEMWTrrf6RO2XbsAgGMK3dsZLF-aYw410NwlVGENM8qAI7ZXaOWm9le--S9jwKCj6GIoh4/pubhtml',
+        callback: showInfo,
+        simpleSheet: true
+      });
+    }
+    
+    function showInfo(data, tabletop) {
+      console.log(data); // Para depuração: veja os dados no console do navegador
+      
+      var tbody = document.querySelector('#sheet-table tbody');
+      
+      // Para cada linha da planilha, cria uma linha na tabela.
+      data.forEach(function(row) {
+        var tr = document.createElement('tr');
+        
+        // Ajuste os nomes das chaves conforme os cabeçalhos da sua planilha.
+        // Por exemplo, se a primeira coluna se chama "Enigma Solution",
+        // a segunda "Telegram Username" e a terceira "Email":
+        var tdSolution = document.createElement('td');
+        tdSolution.textContent = row["Enigma Solution"] || "";
+        
+        var tdTelegram = document.createElement('td');
+        tdTelegram.textContent = row["Telegram Username"] || "";
+        
+        var tdEmail = document.createElement('td');
+        tdEmail.textContent = row["Email"] || "";
+        
+        tr.appendChild(tdSolution);
+        tr.appendChild(tdTelegram);
+        tr.appendChild(tdEmail);
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
